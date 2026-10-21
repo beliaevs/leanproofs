@@ -102,7 +102,7 @@ section hw2
       (λ hp ↦ Or.elim (hpqr hp)
         (λ hq ↦ Or.inl (λ _ ↦ hq))
         (λ hr ↦ Or.inr (λ _ ↦ hr)))
-      (λ hnp ↦ Or.inl (λ hp ↦ False.elim (hnp hp)))
+      (Or.inl ∘ Not.elim)
 
   example : ¬(p ∧ q) → ¬p ∨ ¬q := λ hnpq ↦ Or.elim (Classical.em p)
     (λ hp ↦ Or.elim (Classical.em q) (λ hq ↦ False.elim (hnpq ⟨hp, hq⟩)) (Or.inr))
