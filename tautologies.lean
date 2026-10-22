@@ -50,3 +50,7 @@ example : ¬¬p → p := Classical.byContradiction
 example : (p → q) → ¬p ∨ q := λ hpq ↦ Or.elim (Classical.em p)
   (Or.inr ∘ hpq)
   (Or.inl)
+
+example : (p ∨ ¬p) → (¬¬p → p) := λ hpnp hnnp ↦ Or.elim hpnp
+      (λ hp ↦ hp)
+      (λ hnp ↦ False.elim (hnnp hnp))
