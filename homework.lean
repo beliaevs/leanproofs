@@ -142,13 +142,22 @@ section hw2
 end hw2
 
 section hw3
+
 -- unsolved propositions from the text
 variable (α : Type) (P Q : α → Prop)
-example : (∀ (x : α), P x ∧ Q x) ↔ (∀ x : α, P x) ∧ (∀ x : α, Q x) :=
-  sorry
+example : (∀ (x : α), P x ∧ Q x) ↔ (∀ x : α, P x) ∧ (∀ x : α, Q x) := ⟨
+  λ h ↦ ⟨λ x ↦ (h x).left, λ x ↦ (h x).right⟩,
+  λ ⟨h1, h2⟩ x ↦ ⟨h1 x, h2 x⟩
+  ⟩
 
-example : (∃ x, P x ∨ Q x) ↔ (∃ x, P x) ∨ (∃ x, Q x) :=
-  sorry
+example : (∃ x, P x ∨ Q x) ↔ (∃ x, P x) ∨ (∃ x, Q x) := ⟨
+  λ ⟨x, hpq⟩  ↦ Or.elim hpq
+    (λ hp ↦ Or.inl ⟨x, hp⟩ )
+    (λ hq ↦ Or.inr ⟨x, hq⟩ ),
+  λ hpq ↦ Or.elim hpq
+   (λ ⟨x, hp⟩ ↦ ⟨x, Or.inl hp⟩ )
+   (λ ⟨x, hq⟩ ↦ ⟨x, Or.inr hq⟩ )
+ ⟩
 
 /- 2^α ≃ α → Prop (at least classicaly) -/
 theorem cantor (f : α → (α → Prop)) :
