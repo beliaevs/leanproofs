@@ -9,6 +9,8 @@ theorem EM : p ∨ ¬p := by
 -- intuitionistic theoremы
 example : p → ¬¬p := λ hp hnp ↦ hnp hp
 
+example : ¬¬(p ∨ ¬p) := λ h ↦ h (Or.inr (λ hp ↦ h (Or.inl hp)))
+
 example : (p → q) → (q → r) → (p → r) := λ hpq hqr ↦ hqr ∘ hpq
 
 example : p → p ∨ q := Or.inl
@@ -43,6 +45,7 @@ example : (p → ¬q) → (q → ¬p) := λ hpnq hq hp ↦ (hpnq hp) hq
 
 example : ¬¬(p → q) → (p → ¬¬q) := λ hnnpq hp hnq ↦ Not.elim hnnpq (λ hpq ↦ hnq (hpq hp))
 
+example : (p → ¬¬q) →  ¬¬(p → q) := λ hpnnq hnpq ↦ sorry
 
 -- classical theorems
 example : ¬¬p → p := Classical.byContradiction
